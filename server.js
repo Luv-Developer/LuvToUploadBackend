@@ -23,7 +23,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"https://luv-to-upload-signin.vercel.app",
     methods:["POST","GET"],
     credentials:true
 }))
@@ -53,7 +53,7 @@ app.get("/",(req,res)=>{
     res.render("home")
 })
 app.get("/signin",(req,res)=>{
-    return res.redirect("http://localhost:5173")
+    return res.redirect("https://luv-to-upload-signin.vercel.app")
 })
 /*
 app.post("/signin",async(req,res)=>{
