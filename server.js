@@ -144,7 +144,7 @@ app.post("/signin",async(req,res)=>{
         }
     }
     catch(err){
-        return res.status(500).redirect("http://localhost:5173")
+        return res.status(500).redirect("https://luv-to-upload-signin.vercel.app")
     }
 })   
 
