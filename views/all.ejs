@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Documents - LuvToUpload</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" type = "text/css" href = "/stylesheets/all.css">
+    <link rel="icon" type="image/svg+xml" href="/images/one-drive.png"/>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Delete Document</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <span id="deleteFileName" class="document-name">"Annual_Report.pdf"</span>?</p>
+                <p style="margin-top: 10px; color: #ff7675; font-weight: 500;">This action cannot be undone.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="cancelDeleteBtn">Cancel</button>
+                <button class="btn-modal-confirm" id="confirmDeleteBtn">Delete Forever</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Header Navigation -->
+        <div class="header-nav">
+            <a href="/" class="logo">
+                <i class="fas fa-cloud-upload-alt"></i>
+                LuvToUpload
+            </a>
+            
+            <div class="nav-buttons">
+                <a href = "/">
+                <button class="nav-btn btn-home" id="homeBtn">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                </a>
+                <a href = "/upload">
+                <button class="nav-btn btn-upload" id="uploadBtn">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload
+                </button>
+                </a>
+                <a href = "/profile">
+                <button class="nav-btn btn-profile" id="profileBtn">
+                    <i class="fas fa-user-circle"></i> Profile
+                </button>
+                </a>
+                <a href = "/signout">
+                <button class="nav-btn btn-signout" id="signoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Your Uploaded Documents</h1>
+            <p>Manage, view, download, and organize all your uploaded files in one place.</p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-value"><%= length  %></div>
+                <div class="stat-label">Total Documents</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-value"><%= length  %></div>
+                <div class="stat-label">Uploads This Month</div>
+            </div>
+        </div>
+
+        <!-- Documents Container -->
+        <div class="documents-container">
+            <div class="section-header">
+                <h2><i class="fas fa-folder-open"></i> All Documents</h2>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search documents...">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Grid with Multiple Document Containers -->
+            <div class="documents-grid" id="documentsGrid">
+                <% docs.forEach((doc)=>{   %>
+                    <div class="document-card" data-name="Annual Report 2023" data-type="pdf" data-date="2023-12-15">
+                    <div class="document-header">
+                        <div class="document-info">
+                            <div class="document-name"><%=  doc.filename  %></div>
+                            <div class="document-type">
+                                <i class="fas fa-file-pdf"></i>
+                                <%= doc.type  %> Document
+                            </div>
+                        </div>
+                    </div>
+                    <div class="document-body">
+                        <div class="document-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-hdd"></i>
+                                <span class="meta-label">Size:</span>
+                                <span class="meta-value"><%= doc.size %> KB</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="meta-label">Created:</span>
+                                <span class="meta-value">
+                                    <span class="creation-date">
+                                        <i class="fas fa-clock"></i>
+                                        <%= doc.date  %>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="document-link">
+                            <div class="link-label">
+                                <i class="fas fa-link"></i>
+                                Document URL:
+                            </div>
+                            <div class="link-url">
+                                <%= doc.url   %>
+                            </div>
+                        </div>
+                        
+                        <div class="document-actions">
+                            <button class="action-btn btn-view" onclick="viewDocument('<%= doc.url  %>')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="action-btn btn-download" onclick="downloadDocument('<%= doc.url  %>', '<%= doc.filename %>')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <a href = "/delete/<%= doc.filename  %>">
+                            <button class="action-btn btn-delete" onclick="openDeleteModal('<%= doc.url  %>')">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+               <% })  %>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h3>No Documents Found</h3>
+                <p>You haven't uploaded any documents yet. Start by uploading your first file!</p>
+                <button class="btn-load-more" id="uploadFirstBtn">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload Your First Document
+                </button>
+            </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more">
+            <button class="btn-load-more" id="loadMoreBtn">
+                <i class="fas fa-plus"></i> Load More Documents
+            </button>
+        </div>
+    </div>
+    <script src = "/javascripts/all.js"></script>
+</body>
+</html>

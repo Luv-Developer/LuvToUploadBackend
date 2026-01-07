@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile - LuvToUpload</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" type = "text/css" href = "/stylesheets/profile.css">
+    <link rel="icon" type="image/svg+xml" href="/images/one-drive.png"/>
+</head>
+<body>
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    
+    <div class="container">
+        <!-- Header Navigation -->
+        <div class="header-nav">
+            <a href="/" class="logo">
+                <i class="fas fa-cloud-upload-alt"></i>
+                LuvToUpload
+            </a>
+            
+            <div class="nav-buttons">
+                <a href = "/">
+                <button class="nav-btn btn-home" id="homeBtn">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                </a>
+                <a href = "/upload">
+                <button class="nav-btn btn-upload" id="uploadBtn">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload
+                </button>
+                </a>
+                <a href = "/all">
+                <button class="nav-btn btn-your-uploads" id="yourUploadsBtn">
+                    <i class="fas fa-folder-open"></i> Your Uploads
+                </button>
+                </a>
+                <a href = "/signout">
+                <button class="nav-btn btn-signout" id="signoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Profile Container -->
+        <div class="profile-container">
+            <!-- Profile Card -->
+            <div class="profile-card fade-in">
+                <div class="profile-image-container">
+                    <img src="<%= picture %>" alt="User Profile" class="profile-image" id="profileImage" onerror="this.onerror=null;this.src='/images/default-avatar.svg'">
+                </div>
+                
+                <h1 id="username"><%= name  %></h1>
+                <p>Premium Member</p>
+                <p>Document Uploader</p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalUploads"><%= length  %></div>
+                        <div class="stat-label">Total Uploads</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Details -->
+            <div class="profile-details fade-in">
+                <h2><i class="fas fa-user-circle"></i> Account Information</h2>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </div>
+                        <div class="detail-value" id="userEmail"><%= email  %></div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-calendar-alt"></i> Date of Joining
+                        </div>
+                        <div class="detail-value" id="joinDate"><%= date  %></div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-id-card"></i> Account Type
+                        </div>
+                        <div class="detail-value" id="accountType">Premium</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-shield-alt"></i> Security Status
+                        </div>
+                        <div class="detail-value" id="securityStatus">
+                            <span style="color: #00b894;">Protected</span>
+                            <i class="fas fa-check-circle" style="color: #00b894; margin-left: 8px;"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-globe"></i> Country
+                        </div>
+                        <div class="detail-value" id="userCountry">India</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-hdd"></i> Storage Plan
+                        </div>
+                        <div class="detail-value" id="storagePlan">1 GB Premium</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="changePhotoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Profile Picture</h3>
+                <button class="close-modal" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="upload-options">
+                <div class="upload-option" id="uploadFromDevice">
+                    <div class="option-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <div class="option-info">
+                        <h4>Upload from Device</h4>
+                        <p>Choose a photo from your computer or mobile device</p>
+                    </div>
+                </div>
+                
+                <div class="upload-option" id="takePhoto">
+                    <div class="option-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="option-info">
+                        <h4>Take a Photo</h4>
+                        <p>Use your camera to take a new profile picture</p>
+                    </div>
+                </div>
+                
+                <div class="upload-option" id="chooseFromGallery">
+                    <div class="option-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="option-info">
+                        <h4>Choose from Gallery</h4>
+                        <p>Select from our collection of profile pictures</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src = "/javascripts/profile.js"></script>
+</body>
+</html>

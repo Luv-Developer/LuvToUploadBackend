@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files - LuvToUpload</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" type = "text/css" href = "/stylesheets/upload.css">
+    <link rel="icon" type="image/svg+xml" href="/images/one-drive.png"/>
+</head>
+<body>
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    
+    <div class="container">
+        <div class="header-nav">
+            <a href="/" class="logo">
+                <i class="fas fa-cloud-upload-alt"></i>
+                LuvToUpload
+            </a>
+            
+            <div class="nav-buttons">
+                <a href = "/">
+                <button class="nav-btn btn-home" id="homeBtn">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                </a>
+                <a href = "/profile">
+                <button class="nav-btn btn-profile" id="profileBtn">
+                    <i class="fas fa-user-circle"></i> Profile
+                </button>
+                </a>
+                <a href = "/all">
+                <button class="nav-btn btn-your-uploads" id="yourUploadsBtn">
+                    <i class="fas fa-folder-open"></i> Your Uploads
+                </button>
+                </a>
+                <a href = "/signout">
+                <button class="nav-btn btn-signout" id="signoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Upload Section -->
+        <div class="upload-container">
+            <div class="upload-title fade-in">
+                <h1>Upload Your Documents Securely</h1>
+                <p>Drag & drop your files or click to browse. We support PDF, Word, Excel, PowerPoint, and more.</p>
+            </div>
+            
+            <!-- Upload Area -->
+             <form action = "/upload" method = "post" enctype="multipart/form-data">
+            <div class="upload-area-wrapper">
+                <div class="upload-area fade-in" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    
+                    <h2>Select Files to Upload</h2>
+                    <p>Maximum file size: 50MB per file</p>
+                    
+                    <!-- File Input -->
+                    <div class="file-input-container">
+                        <label class="file-input-label" for="fileInput">
+                            <i class="fas fa-folder-open"></i>
+                            <span>Choose Files</span>
+                        </label>
+                        <input name = "file" type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif">
+                    </div>
+                    
+                    <p>or drag and drop files here</p>
+                </div>
+            </div>
+            
+            <!-- File Preview -->
+            <div class="file-preview-container" id="filePreview">
+                <div class="file-preview">
+                    <div class="file-preview-header">
+                        <h3><i class="fas fa-file-alt"></i> File Ready to Upload</h3>
+                        <button class="btn-cancel action-btn" id="removeFileBtn">
+                            <i class="fas fa-times"></i> Remove
+                        </button>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-icon" id="fileIcon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="file-details">
+                            <div class="file-name" id="fileName">document.pdf</div>
+                            <div class="file-meta">
+                                <div class="file-size">
+                                    <i class="fas fa-hdd"></i>
+                                    <span id="fileSize">2.4 MB</span>
+                                </div>
+                                <div class="file-type">
+                                    <i class="fas fa-file"></i>
+                                    <span id="fileType">PDF Document</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upload Progress -->
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="progress-header">
+                            <span class="progress-text">Uploading...</span>
+                            <span class="progress-percent" id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upload Actions -->
+                    <div class="upload-actions">
+                        <button type="button" class="action-btn btn-upload" id="uploadBtn">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload File
+                        </button>
+                        <button class="action-btn btn-cancel" id="cancelBtn">
+                            <i class="fas fa-ban"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            
+            <!-- Upload Statistics -->
+            <div class="upload-stats fade-in">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-value">256-bit</div>
+                    <div class="stat-label">Encryption</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="stat-value" id="totalUploads">1,247</div>
+                    <div class="stat-label">Total Uploads</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">10K+</div>
+                    <div class="stat-label">Happy Users</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification" id="successNotification" style="display: none;">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span>File uploaded successfully!</span>
+        </div>
+    </div>
+    <script src = "/javascripts/upload.js"></script>
+</body>
+</html>
