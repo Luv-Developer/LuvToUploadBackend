@@ -88,7 +88,7 @@ app.post("/signin",async(req,res)=>{
                 })
             }
             else{
-                return res.status(201)
+                return res.status(201).redirect("/profile")
             }
         }
         else{
