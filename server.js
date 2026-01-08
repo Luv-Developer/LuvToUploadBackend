@@ -25,6 +25,7 @@ app.use(express.json())
 app.use(cors({
     origin:"https://luv-to-upload-signin.vercel.app",
     methods:["POST","GET"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials:true
 }))
 
