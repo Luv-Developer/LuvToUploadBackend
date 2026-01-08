@@ -55,49 +55,7 @@ app.get("/",(req,res)=>{
 app.get("/signin",(req,res)=>{
     return res.redirect("https://luv-to-upload-signin.vercel.app")
 })
-/*
-app.post("/signin",async(req,res)=>{
-    let {name,email,picuture} = req.body
-    try{
-        let {data:user} = await supabase
-        .from("users3")
-        .select("*")
-        .eq("email",email)
-        .single()
-        if(user){
-            let token = jwt.sign({email},SECRETKEY)
-            res.cookie("token",token)
-            return res.redirect("/profile")
-        }
-        else{
-            let today = new Date()
-            let date = String(today.getDate()).padStart(2,"0")
-            let month = String(today.getMonth()+1).padStart(2,"0")
-            let year = today.getFullYear()
-            today = date + "/" + month + "/" + year
-            let {data:insert,err} = await supabase
-            .from("users3")
-            .insert([{
-                name:name,
-                picuture:picuture,
-                email:email,
-                date:date
-            }])
-            if(err){
-                return res.redirect("/signin")
-            }
-            else{
-            let token = jwt.sign({email},SECRETKEY)
-            res.cookie("token",token)
-            return res.redirect("/profile")
-            }
-        }
-    }
-    catch(err){
-        return res.redirect("/signin")
-    }
-})
-    */
+
 app.post("/signin",async(req,res)=>{
     let {email,name,picture} = req.body
     try{
@@ -112,12 +70,6 @@ app.post("/signin",async(req,res)=>{
             let month = String(today.getMonth()+1).padStart(2,"0")
             let year = today.getFullYear()
             today = date + "/" + month + "/" + year
-            let token = jwt.sign({email},SECRETKEY)
-            res.cookie("token",token)
-            // Store Supabase access token in an httpOnly cookie for later requests
-            if(access_token){
-                res.cookie('sb_token', access_token, { httpOnly: true, sameSite: 'lax' })
-            }
             let {data:insert,err} = await supabase
             .from("users3")
             .insert([{
@@ -128,31 +80,24 @@ app.post("/signin",async(req,res)=>{
             }])
             if(err){
                 return res.status(401).json({
-                    message: "Error inserting user",
-                    redirect: false,
-                    error: err
+                    message:"Error inserting user",
+                    redirect:false,
+                    error:err
                 })
             }
             else{
-                if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || req.headers['x-requested-with'] === 'XMLHttpRequest') {
-                    return res.status(201).json({ redirect: '/profile' })
-                }
+                let token = jwt.sign({email},SECRETKEY)
+                res.cookie("token",token)
                 return res.status(201).redirect("/profile")
             }
         }
         else{
             let token = jwt.sign({email},SECRETKEY)
             res.cookie("token",token)
-            if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || req.headers['x-requested-with'] === 'XMLHttpRequest') {
-                return res.status(200).json({ redirect: '/profile' })
-            }
             return res.status(200).redirect("/profile")
         }
     }
     catch(err){
-        if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || req.headers['x-requested-with'] === 'XMLHttpRequest') {
-            return res.status(500).json({ message: 'Server error', error: err })
-        }
         return res.status(500).redirect("https://luv-to-upload-signin.vercel.app")
     }
 })   
