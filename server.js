@@ -128,22 +128,31 @@ app.post("/signin",async(req,res)=>{
             }])
             if(err){
                 return res.status(401).json({
-                    message:"Error inserting user",
-                    redirect:false,
-                    error:err
+                    message: "Error inserting user",
+                    redirect: false,
+                    error: err
                 })
             }
             else{
+                if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || req.headers['x-requested-with'] === 'XMLHttpRequest') {
+                    return res.status(201).json({ redirect: '/profile' })
+                }
                 return res.status(201).redirect("/profile")
             }
         }
         else{
             let token = jwt.sign({email},SECRETKEY)
             res.cookie("token",token)
+            if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || req.headers['x-requested-with'] === 'XMLHttpRequest') {
+                return res.status(200).json({ redirect: '/profile' })
+            }
             return res.status(200).redirect("/profile")
         }
     }
     catch(err){
+        if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || req.headers['x-requested-with'] === 'XMLHttpRequest') {
+            return res.status(500).json({ message: 'Server error', error: err })
+        }
         return res.status(500).redirect("https://luv-to-upload-signin.vercel.app")
     }
 })   
