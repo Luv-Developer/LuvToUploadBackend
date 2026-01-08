@@ -71,8 +71,6 @@ app.post("/signin",async(req,res)=>{
             let month = String(today.getMonth()+1).padStart(2,"0")
             let year = today.getFullYear()
             today = date + "/" + month + "/" + year
-            let token = jwt.sign({email},SECRETKEY)
-            res.cookie("token",token)
             let {data:insert,err} = await supabase
             .from("users3")
             .insert([{
@@ -89,6 +87,8 @@ app.post("/signin",async(req,res)=>{
                 })
             }
             else{
+                let token = jwt.sign({email},SECRETKEY)
+                res.cookie("token",token)
                 return res.status(201).redirect("/profile")
             }
         }
